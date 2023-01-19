@@ -1,6 +1,6 @@
-package excercise.worker;
+package exercise.worker;
 
-import excercise.article.Article;
+import exercise.article.Article;
 
 import java.util.List;
 

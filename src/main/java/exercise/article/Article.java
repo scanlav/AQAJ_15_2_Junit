@@ -1,6 +1,7 @@
-package excercise.article;
+package exercise.article;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class Article {
     private String title;
@@ -54,14 +55,16 @@ public class Article {
 
         Article article = (Article) o;
 
-        if (!title.equals(article.title)) return false;
-        return author.equals(article.author);
+        if (!Objects.equals(title, article.title)) return false;
+        if (!Objects.equals(content, article.content)) return false;
+        return Objects.equals(author, article.author);
     }
 
     @Override
     public int hashCode() {
-        int result = title.hashCode();
-        result = 31 * result + author.hashCode();
+        int result = title != null ? title.hashCode() : 0;
+        result = 31 * result + (content != null ? content.hashCode() : 0);
+        result = 31 * result + (author != null ? author.hashCode() : 0);
         return result;
     }
 

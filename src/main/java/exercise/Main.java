@@ -1,10 +1,10 @@
-package excercise;
+package exercise;
 
 
-import excercise.article.Article;
-import excercise.article.LibraryImpl;
-import excercise.worker.Worker;
-import excercise.worker.WorkerImpl;
+import exercise.article.Article;
+import exercise.article.LibraryImpl;
+import exercise.worker.Worker;
+import exercise.worker.WorkerImpl;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

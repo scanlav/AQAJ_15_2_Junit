@@ -1,4 +1,4 @@
-package excercise.article;
+package exercise.article;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -47,6 +47,7 @@ public class LibraryImpl implements Library {
 
     @Override
     public void store(int year, List<Article> articles) {
+        System.out.println("Сохраняем новые статьи");
         tempStorage.merge(year, articles, (oldList, newList) -> {
             oldList.addAll(newList);
             return oldList;
@@ -55,6 +56,7 @@ public class LibraryImpl implements Library {
 
     @Override
     public void updateCatalog() {
+        System.out.println("Обновляем каталог");
         tempStorage.forEach((key, value) -> storage.merge(key, value, (oldList, newList) -> {
             oldList.addAll(newList);
             return oldList;
@@ -64,6 +66,7 @@ public class LibraryImpl implements Library {
 
     @Override
     public List<String> getAllTitles() {
+        System.out.println("Формируем список названий статей");
         return storage.values().stream().flatMap(List::stream).map(Article::getTitle).toList();
     }
 }

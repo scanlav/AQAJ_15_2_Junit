@@ -1,4 +1,4 @@
-package excercise.article;
+package exercise.article;
 
 import java.util.List;
 

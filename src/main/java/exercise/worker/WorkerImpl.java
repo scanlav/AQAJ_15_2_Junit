@@ -1,7 +1,7 @@
-package excercise.worker;
+package exercise.worker;
 
-import excercise.article.Article;
-import excercise.article.Library;
+import exercise.article.Article;
+import exercise.article.Library;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WorkerImpl implements Worker {
-    private Library library;
+    private final Library library;
 
     public WorkerImpl(Library library) {
         this.library = library;
@@ -19,7 +19,7 @@ public class WorkerImpl implements Worker {
     public void addNewArticles(List<Article> articles) {
         Map<Integer, List<Article>> newArticles = prepareArticles(articles).stream()
                 .collect(Collectors.groupingBy(a -> a.getCreationDate().getYear()));
-        newArticles.forEach((key, value) -> library.store(key, value));
+        newArticles.forEach(library::store);
         updateIfNecessary(newArticles);
     }
 
