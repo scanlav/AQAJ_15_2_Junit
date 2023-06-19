@@ -51,7 +51,7 @@ class WorkerImplTest {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("title", "content", "author",
                 LocalDate.parse("2022-01-01")));
-        articles.add(new Article("title 2", "", "author 2", null));
+        articles.add(new Article("title 2", "content 2", "author 2", null));
         articles.add(new Article("", "content 3", "author 3",
                 LocalDate.parse("2022-01-03")));
 
@@ -60,8 +60,8 @@ class WorkerImplTest {
         List<Article> expectedArticles = new ArrayList<>();
         expectedArticles.add(new Article("title", "content", "author",
                 LocalDate.parse("2022-01-01")));
-        expectedArticles.add(new Article("", "content 3", "author 3",
-                LocalDate.parse("2022-01-03")));
+        expectedArticles.add(new Article("title 2", "content 2", "author 2",
+                LocalDate.now()));
 
         assertEquals(expectedArticles, preparedArticles);
     }
@@ -71,11 +71,11 @@ class WorkerImplTest {
     public void testAddNewArticles() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("title", "content", "author",
-                LocalDate.parse("2022-01-01")));
+                LocalDate.of(2022, 01, 01)));
         articles.add(new Article("title 2", "content 2", "author 2",
-                LocalDate.parse("2022-01-02")));
+                LocalDate.of(2022, 02, 02)));
         articles.add(new Article("title 3", "content 3", "author 3",
-                LocalDate.parse("2022-01-03")));
+                LocalDate.of(2022, 03, 03)));
 
         worker.addNewArticles(articles);
 
