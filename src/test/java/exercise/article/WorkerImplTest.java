@@ -154,7 +154,7 @@ class WorkerImplTest {
 
         worker.addNewArticles(articles);
 
-        verify(mockLibrary, times(1)).store(2022, articles);
+        verify(mockLibrary, times(1)).store(2023, articles);
         verify(mockLibrary, times(1)).updateCatalog();
     }
 }

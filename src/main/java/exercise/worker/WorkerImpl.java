@@ -39,7 +39,7 @@ public class WorkerImpl implements Worker {
                 .stream()
                 .filter(this::isArticleCorrect)
                 .distinct()
-                .collect(Collectors.toList());
+                .toList();
         result.forEach(this::prepareDate);
         return result;
     }
