@@ -110,6 +110,37 @@ class WorkerImplTest {
     }
 
     @Test
+    @DisplayName("Сохранение правильно заполненной статьи")
+    public void testPrepareArticles() {
+        List<Article> articles = new ArrayList<>();
+
+        articles.add(new Article("title", "content", "author",
+                LocalDate.now()));
+
+        List<Article> preparedArticles = worker.prepareArticles(articles);
+
+        List<Article> expectedArticles = new ArrayList<>();
+        expectedArticles.add(new Article("title", "content", "author",
+                LocalDate.now()));
+
+        assertEquals(expectedArticles, preparedArticles);
+    }
+
+    @Test
+    @DisplayName("Запрет сохранения дублирующих статей") //бонус
+    public void testAddNewArticlesSameContent() {
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("title", "content", "author",
+                LocalDate.now()));
+        articles.add(new Article("title", "content", "author",
+                LocalDate.now()));
+        articles.add(new Article("title 3", "content 3", "author 3",
+                LocalDate.now()));
+
+        assertEquals(2, worker.prepareArticles(articles).size());
+    }
+
+    @Test
     @DisplayName("Добавление новых статей") //проверка происходит через регистрацию вызова методов store()
     // и updateCatalog()
     public void testAddNewArticles() {
@@ -125,7 +156,6 @@ class WorkerImplTest {
 
         verify(mockLibrary, times(1)).store(2022, articles);
         verify(mockLibrary, times(1)).updateCatalog();
-
     }
 }
 
