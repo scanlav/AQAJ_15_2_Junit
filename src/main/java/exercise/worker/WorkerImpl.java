@@ -60,7 +60,7 @@ public class WorkerImpl implements Worker {
     }
 
     private void updateIfNecessary(Map<Integer, List<Article>> newArticles) {
-        if (newArticles.isEmpty()) {
+        if (!newArticles.isEmpty()) {
             library.updateCatalog();
         }
     }

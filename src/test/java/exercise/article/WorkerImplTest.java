@@ -28,6 +28,7 @@ class WorkerImplTest {
     }
 
     @Test
+    @DisplayName("Список доступных статей")
     public void testGetCatalog() {
         when(mockLibrary.getAllTitles()).thenReturn(Arrays.asList(
                 "Title 1",
@@ -47,27 +48,70 @@ class WorkerImplTest {
     }
 
     @Test
-    public void testPrepareArticles() {
+    @DisplayName("Сохранение статьи без указания даты")
+    public void testPrepareArticlesWithoutDate() {
         List<Article> articles = new ArrayList<>();
+
         articles.add(new Article("title", "content", "author",
-                LocalDate.parse("2022-01-01")));
-        articles.add(new Article("title 2", "content 2", "author 2", null));
-        articles.add(new Article("", "content 3", "author 3",
-                LocalDate.parse("2022-01-03")));
+                null));
 
         List<Article> preparedArticles = worker.prepareArticles(articles);
 
         List<Article> expectedArticles = new ArrayList<>();
+
         expectedArticles.add(new Article("title", "content", "author",
-                LocalDate.parse("2022-01-01")));
-        expectedArticles.add(new Article("title 2", "content 2", "author 2",
                 LocalDate.now()));
 
         assertEquals(expectedArticles, preparedArticles);
     }
 
     @Test
-    @DisplayName("Добавление новых статей")
+    @DisplayName("Запрет сохранения статьи без указания заголовка")
+    public void testPrepareArticlesWithoutTitle() {
+        List<Article> articles = new ArrayList<>();
+        articles.add(new Article("", "content", "author",
+                LocalDate.now()));
+
+        List<Article> preparedArticles = worker.prepareArticles(articles);
+
+        List<Article> expectedArticles = new ArrayList<>();
+
+        assertEquals(expectedArticles, preparedArticles);
+    }
+
+    @Test
+    @DisplayName("Запрет сохранения статьи без указания контента")
+    public void testPrepareArticlesWithoutContent() {
+        List<Article> articles = new ArrayList<>();
+
+        articles.add(new Article("title", "", "author",
+                LocalDate.now()));
+
+        List<Article> preparedArticles = worker.prepareArticles(articles);
+
+        List<Article> expectedArticles = new ArrayList<>();
+
+        assertEquals(expectedArticles, preparedArticles);
+    }
+
+    @Test
+    @DisplayName("Запрет сохранения статьи без указания автора")
+    public void testPrepareArticlesWithoutAuthor() {
+        List<Article> articles = new ArrayList<>();
+
+        articles.add(new Article("title", "content", "",
+                LocalDate.now()));
+
+        List<Article> preparedArticles = worker.prepareArticles(articles);
+
+        List<Article> expectedArticles = new ArrayList<>();
+
+        assertEquals(expectedArticles, preparedArticles);
+    }
+
+    @Test
+    @DisplayName("Добавление новых статей") //проверка происходит через регистрацию вызова методов store()
+    // и updateCatalog()
     public void testAddNewArticles() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("title", "content", "author",
