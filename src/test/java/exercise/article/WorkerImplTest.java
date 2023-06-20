@@ -146,11 +146,11 @@ class WorkerImplTest {
     public void testAddNewArticles() {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("title", "content", "author",
-                LocalDate.of(2022, 01, 01)));
+                LocalDate.now()));
         articles.add(new Article("title 2", "content 2", "author 2",
-                LocalDate.of(2022, 02, 02)));
+                LocalDate.now()));
         articles.add(new Article("title 3", "content 3", "author 3",
-                LocalDate.of(2022, 03, 03)));
+                LocalDate.now()));
 
         worker.addNewArticles(articles);
 
