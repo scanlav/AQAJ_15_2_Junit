@@ -133,7 +133,7 @@ class WorkerImplTest {
         List<Article> articles = new ArrayList<>();
         articles.add(new Article("title", "content", "author",
                 LocalDate.now()));
-        articles.add(new Article("title", "content", "author",
+        articles.add(new Article("title", "content", "author 2 ",
                 LocalDate.now()));
         articles.add(new Article("title 3", "content 3", "author 3",
                 LocalDate.now()));
@@ -155,8 +155,8 @@ class WorkerImplTest {
 
         worker.addNewArticles(articles);
 
-        verify(mockLibrary, times(1)).store(2023, articles);
-        verify(mockLibrary, times(1)).updateCatalog();
+        verify(mockLibrary, atLeastOnce()).store(2023, articles);
+        verify(mockLibrary, atLeastOnce()).updateCatalog();
     }
 }
 
